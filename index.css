@@ -1,0 +1,107 @@
+.header{
+    display:flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+.logo{
+    width:200px;
+}
+
+.nav-items>ul{
+    display:flex;
+    font-size: 24px;
+    list-style-type: none;
+}
+
+.nav-items>ul>li{
+    margin:10px;
+    padding: 10px;
+}
+
+.res-card{
+    width: 200px;
+    height: 250px;
+    margin: 5px;
+    padding: 5px;
+    background-color: "f0f0f0";
+     
+}
+/* hover border */
+.res-card:hover{
+    /* if you put space ie card :hover then all child hovers */
+    border:1px solid black;
+    cursor: pointer;
+}
+
+
+
+.rating::before {
+  content: "⭐ ";
+  color: gold;
+}
+
+.res-info{
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+
+.res-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.search{
+    padding:10px;
+
+}
+
+.food-img{
+    height:140px;
+    width: 100%;
+    
+}
+
+.filter{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+.filter-btn{
+    margin:10px;
+    cursor:pointer
+}
+
+.shimmer-cards{
+    width: 200px;
+    height: 250px;
+    margin: 5px;
+    padding: 5px;
+    background-color: grey;
+    border: 0cap;
+}
+
+.shimmer-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.login-btn{
+    padding: 8px 20px;
+    margin: 10px 10px;
+    cursor: pointer;
+    background-color: seagreen;
+    width: 80px;
+    height: 40px;
+    border-radius: 16px; /* curve edges */
+    text-align: center;
+}
+
+
+
+
