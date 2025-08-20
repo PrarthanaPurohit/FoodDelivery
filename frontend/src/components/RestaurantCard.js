@@ -1,7 +1,8 @@
 const RestaurantCard = (props) => {
     return(
         <div className="res-card" >
-            <img className="food-img" alt="res-logo" src={props.img}></img>
+           <img className="food-img" alt={props.resName} src={props.img} />
+
             <h3>{props.resName}</h3>  
             <div className="res-info">
                 <h4>{props.cuisine}</h4>

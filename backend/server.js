@@ -13,6 +13,7 @@ app.use(cors({
 }));
 
 app.get("/api/menu", async (req, res) => {
+  const { restaurantId } = req.query;
  
 
   try {
