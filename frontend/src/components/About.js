@@ -1,5 +1,4 @@
 const About = () => {
-    
   return (
     <div className="about-container">
       <h1 className="about-title">About Us</h1>
@@ -23,7 +22,7 @@ const About = () => {
       <p className="about-text">
         Our mission is to bring people closer to their favorite food by making
         ordering as easy as tapping a button. Whether you crave street food or
-        gourmet meals, we’ve got you covered.
+        gourmet meals, we've got you covered.
       </p>
 
       <h2 className="about-subtitle">Contact Us</h2>
@@ -34,6 +33,5 @@ const About = () => {
     </div>
   );
 };
-
 
 export default About;

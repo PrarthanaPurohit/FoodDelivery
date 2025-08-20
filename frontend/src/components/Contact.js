@@ -3,7 +3,7 @@ const Contact = () => {
     <div className="contact-container">
       <h1 className="contact-title">Contact Us</h1>
       <p className="contact-subtitle">
-        We’d love to hear from you! 💌  
+        We'd love to hear from you! 💌  
         Reach out to us anytime.
       </p>
 
