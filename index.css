@@ -231,6 +231,46 @@
   }
 }
 
+/* ErrorPage.css */
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #ffe4ec; /* pastel pink background */
+  text-align: center;
+  padding: 20px;
+}
+
+.error-title {
+  font-size: 4rem;
+  color: #d6336c; /* dark rose pink */
+  margin-bottom: 10px;
+}
+
+.error-message {
+  font-size: 1.3rem;
+  color: #6a1b3f; /* deep maroon for contrast */
+  margin-bottom: 20px;
+}
+
+.error-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ffb6c1; /* light pastel pink */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.error-button:hover {
+  background-color: #d6336c; /* dark rose pink */
+  transform: scale(1.05
 
 
 
