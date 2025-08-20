@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-
 import { useRouteError } from "react-router-dom";
-
 
 const ErrorPage = () => {
     const err = useRouteError();
@@ -13,7 +11,7 @@ const ErrorPage = () => {
         {err.status}: {err.statusText}
       </h3>
       <p className="error-message">
-        The page you are looking for is either cooking or doesn’t exist.
+        The page you are looking for is either cooking or doesn't exist.
       </p>
       
       <Link to="/" className="error-button">

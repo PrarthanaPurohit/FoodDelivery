@@ -8,15 +8,12 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 
-
-
 const AppLayout = () => {
     return ( 
         <div className="app">
             <Header/>
             <Outlet />  
             {/* outlet acts like a placeholder where child routes will be rendered. */}
-            
         </div>
     );
 };
