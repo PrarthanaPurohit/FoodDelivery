@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 const Shimmer = () => <div>Loading...</div>;
 
 const RestaurantCard = () => {
+  const {resId } = useParams();
   const [restaurant, setRestaurant] = useState(null);
 
 
@@ -54,12 +55,12 @@ const RestaurantCard = () => {
       menu: menuItems,
     };
   };
-  const {resId } = useParams();
+  
   useEffect(() => {
     const fetchMenu = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/menu?restaurantId=63800"
+          `http://localhost:5000/api/menu?restaurantId=${resId || 63800}`
         );
         const data = await response.json();
         const extracted = extractRestaurantData(data);
@@ -70,7 +71,7 @@ const RestaurantCard = () => {
     };
 
     fetchMenu();
-  }, []);
+  }, [resId]);
 
   if (!restaurant) return <Shimmer />;
 

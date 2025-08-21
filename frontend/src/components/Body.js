@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
@@ -74,8 +75,10 @@ const Body = () => {
 
       <div className="res-container">
         {filteredRestaurant.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.info.id}
+          <Link 
+          key={restaurant.info.id}
+          to={`/restaurants/${restaurant.info.id}`}><RestaurantCard
+            
             resName={restaurant.info.name}
             cuisine={restaurant.info.cuisines.join(", ")}
             rating={restaurant.info.avgRating}
@@ -84,9 +87,7 @@ const Body = () => {
   restaurant.info.cloudinaryImageId
     ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`
     : "https://via.placeholder.com/150" // placeholder image
-}
-
-          />
+}/></Link>
         ))}
       </div>
     </div>

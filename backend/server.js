@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
-import { useParams } from "react-router-dom";
+
 //https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.7576694&lng=75.9062043&restaurantId=63800&catalog_qa=undefined&submitAction=ENTER
 const app = express();
 const PORT = 5000;
@@ -47,6 +47,7 @@ app.use(cors({
 }));
 
 app.get("/api/restaurants", async (req, res) => {
+  
  
 
   try {
