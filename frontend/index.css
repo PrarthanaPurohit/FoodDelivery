@@ -1,3 +1,4 @@
+/* Legacy styles - consider migrating to Tailwind classes */
 .header{
     display:flex;
     justify-content: space-between;
