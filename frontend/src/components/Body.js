@@ -64,24 +64,28 @@ const Body = () => {
 
   return (
 
-    <div className="body">
-      <div className="filter">
+    <div className="body min-h-screen bg-gradient-to-br from-yellow-50 via-white-50 to-amber-100">
+      <div className="filter items-center flex flex-wrap px-4 py-2 gap-x-4">
         <div className="search">
           <input
             type="text"
-            className="search-box"
+            className="m-4 px-4 py-2 border border-black rounded-lg w-64"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search for restaurants or cuisines"
           />
-          <button onClick={handleSearch}>Search</button>
+          <button className="px-4 py-2 bg-green-200 rounded-lg hover:bg-green-300" onClick={handleSearch}>Search</button>
         </div>
-        <button className="filter-btn" onClick={handleTopRated}>
+        <div>
+        <button className="filter-btn px-4 py-2 bg-green-200 items-center rounded-lg hover:bg-green-300" onClick={handleTopRated}>
           Top Rated Restaurants
         </button>
       </div>
+        
+      </div>
+      
 
-      <div className="res-container">
+      <div className="res-container flex flex-wrap">
         {filteredRestaurant.map((restaurant) => (
           <Link 
           key={restaurant.info.id}

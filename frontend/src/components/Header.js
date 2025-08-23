@@ -9,9 +9,9 @@ export const Header = () => {
     const onlineStatus = useOnlineStatus();
 
     return (
-        <div className="flex justify-between items-center p-4 border-b border-gray-200 shadow-sm">
+        <div className="flex justify-between items-center p-4 border-b border-gray-200 shadow-sm bg-yellow-100 rounded-lg shadow-lg">
             <div className="logo-container">
-                <img className="w-48 h-auto" src={LOGO_URL} alt="Logo"></img>
+                <img className="w-44 h-auto rounded-3xl" src={LOGO_URL} alt="Logo"></img>
             </div>
 
             <div className="nav-items">
@@ -25,9 +25,9 @@ export const Header = () => {
                     <li>
                         <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact Us</Link>
                     </li>
-                    <li className="text-gray-700">Cart</li>
+                    <li className="text-gray-700  hover:text-blue-600">Cart</li>
                     <button
-                        className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                        className="px-5 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
                         onClick={() => {
                             btnName === "Login" ? setBtnName("Logout") : setBtnName("Login")
                         }}

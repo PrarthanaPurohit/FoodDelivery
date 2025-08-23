@@ -76,23 +76,29 @@ const RestaurantCard = () => {
   if (!restaurant) return <Shimmer />;
 
   return (
-    <div>
-      <h2>{restaurant.name}</h2>
-      <p>Cuisines: {restaurant.cuisine}</p>
-      <p>Cost for Two: {restaurant.costForTwo}</p>
-      <p>Rating: {restaurant.rating} ⭐</p>
-      <p>Address: {restaurant.address}</p>
-      <p>Delivery Time: {restaurant.deliveryTime} mins</p>
+    
+    <div className="max-w-3xl mx-auto pt-4 mt-8 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+      <div className="bg-emerald-100 p-4  border-b rounded-t-lg">
+      <h2 className="font-bold p-4 text-2xl m-2 ">{restaurant.name}</h2></div>
 
-      <h3>Menu Items:</h3>
-      <ul>
+      <div className="font-mono px-4 py-4 bg-emerald-50 border overflow-hidden border-gray-200 shadow-md">
+      <p><span className="font-semibold">🍴 Cuisines:</span> {restaurant.cuisine}</p>
+      <p><span className="font-semibold">💰 Cost for Two:</span> {restaurant.costForTwo}</p>
+      <p><span className="font-semibold">⭐ Rating:</span> {restaurant.rating} </p>
+      <p><span className="font-semibold">📍Address:</span> {restaurant.address}</p>
+      <p><span className="font-semibold">⏰ Delivery Time:</span> {restaurant.deliveryTime} mins</p>
+
+      <h3 className="mt-4 mb-2 font-semibold text-lg text-gray-800">Menu Items:</h3>
+      <ul className=" list-inside space-y-1 text-gray-700">
         {restaurant.menu.map((item, index) => (
-          <li key={index}>
+          <li key={index} className="list-disc ">
             {item.name} - ₹{item.price}
           </li>
         ))}
       </ul>
+      </div>
     </div>
+  
   );
 };
 
