@@ -1,9 +1,12 @@
 import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 export const Header = () => {
     const [btnName, setBtnName] = useState("Login");
+
+    const onlineStatus = useOnlineStatus();
 
     return (
         <div className="flex justify-between items-center p-4 border-b border-gray-200 shadow-sm">
