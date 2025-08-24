@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withDiscountLabel} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const RestaurantCardDiscount = withDiscountLabel(RestaurantCard); //new component with label
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -26,8 +28,10 @@ const Body = () => {
 
         setListOfRestaurant(restaurants);
         setFilteredRestaurant(restaurants);
+        console.log(listOfRestaurant);
       } catch (error) {
         console.error("Error fetching restaurants:", error);
+        
       }
     };
 
@@ -89,17 +93,10 @@ const Body = () => {
         {filteredRestaurant.map((restaurant) => (
           <Link 
           key={restaurant.info.id}
-          to={`/restaurants/${restaurant.info.id}`}><RestaurantCard
-            
-            resName={restaurant.info.name}
-            cuisine={restaurant.info.cuisines.join(", ")}
-            rating={restaurant.info.avgRating}
-            timing={restaurant.info.sla.deliveryTime + " mins"}
-            img={
-  restaurant.info.cloudinaryImageId
-    ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`
-    : "https://via.placeholder.com/150" // placeholder image
-}/></Link>
+          to={`/restaurants/${restaurant.info.id}`}>
+            <RestaurantCardDiscount restaurant={restaurant} />
+        
+    </Link>
         ))}
       </div>
     </div>

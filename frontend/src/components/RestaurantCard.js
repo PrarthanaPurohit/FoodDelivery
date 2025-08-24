@@ -13,4 +13,45 @@ const RestaurantCard = (props) => {
     )
 };
 
+// higher order component - returning a new component
+export const withDiscountLabel = (RestaurantCard) => {
+  return (props) => {
+    const discountInfo = props.restaurant.info.aggregatedDiscountInfoV3;
+    const pureVeg = props.restaurant.info.badgesV2?.entityBadges?.imageBased?.badgeObject?.[0]?.attributes?.description;
+
+
+    return (
+      <div className="relative">
+        {discountInfo && (
+          <span className="absolute left-2 bg-blue-300 text-white px-2 py-1 text-xs rounded-md shadow-md">
+            {discountInfo.header}{" "}
+            {discountInfo.subHeader && `| ${discountInfo.subHeader}`}
+          </span>
+        )}
+          <div>
+            {pureVeg &&(
+            
+            <span className= "absolute  right-2 text-white bg-green-500 px-2 py-1 text-xs rounded-md shadow-md ">
+            Pure Veg
+          </span>)}
+          </div>
+
+
+        {/* Pass props properly to RestaurantCard */}
+        <RestaurantCard
+          resName={props.restaurant.info.name}
+          cuisine={props.restaurant.info.cuisines.join(", ")}
+          rating={props.restaurant.info.avgRating}
+          timing={props.restaurant.info.sla.deliveryTime + " mins"}
+          img={
+            props.restaurant.info.cloudinaryImageId
+              ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${props.restaurant.info.cloudinaryImageId}`
+              : "https://via.placeholder.com/150"
+          }
+        />
+      </div>
+    );
+  };
+};
+
 export default RestaurantCard;
