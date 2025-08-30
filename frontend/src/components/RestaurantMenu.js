@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import RestaurantCategory from "./RestaurantCategory";
 
 // Simple loader
 const Shimmer = () => <div>Loading...</div>;
@@ -7,6 +8,7 @@ const Shimmer = () => <div>Loading...</div>;
 const RestaurantCard = () => {
   const {resId } = useParams();
   const [restaurant, setRestaurant] = useState(null);
+  const [categories, setCategories] = useState([]); // 👈 new state for categories
 
 
 
@@ -44,6 +46,20 @@ const RestaurantCard = () => {
 
     menuItems = menuItems.slice(0, 3); // first 3 items
 
+      // 👇 Extract categories here
+     const categoriesList =
+  data.data.cards.find((card) => card.groupedCard)
+    ?.groupedCard.cardGroupMap.REGULAR.cards.filter(
+      (c) => {
+        const type = c.card?.card?.["@type"];
+        return (
+          type === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" ||
+          type === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory"
+        );
+      }
+    ) || [];
+ setCategories(categoriesList);
+
     return {
       id: restaurantInfo.id,
       name: restaurantInfo.name,
@@ -77,25 +93,32 @@ const RestaurantCard = () => {
 
   return (
     
-    <div className="max-w-3xl mx-auto pt-4 mt-8 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
-      <div className="bg-emerald-100 p-4  border-b rounded-t-lg">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-pink-50 to-pink-200 ">
+      <div className="text-center">
+      
+      <div>
       <h2 className="font-bold p-4 text-2xl m-2 ">{restaurant.name}</h2></div>
 
-      <div className="font-mono px-4 py-4 bg-emerald-50 border overflow-hidden border-gray-200 shadow-md">
+      <div className="border border-gray-50 rounded-lg w-fit p-2 mx-auto bg-pink-200">
       <p><span className="font-semibold">🍴 Cuisines:</span> {restaurant.cuisine}</p>
       <p><span className="font-semibold">💰 Cost for Two:</span> {restaurant.costForTwo}</p>
       <p><span className="font-semibold">⭐ Rating:</span> {restaurant.rating} </p>
       <p><span className="font-semibold">📍Address:</span> {restaurant.address}</p>
       <p><span className="font-semibold">⏰ Delivery Time:</span> {restaurant.deliveryTime} mins</p>
+      </div>
 
-      <h3 className="mt-4 mb-2 font-semibold text-lg text-gray-800">Menu Items:</h3>
-      <ul className=" list-inside space-y-1 text-gray-700">
-        {restaurant.menu.map((item, index) => (
-          <li key={index} className="list-disc ">
-            {item.name} - ₹{item.price}
-          </li>
-        ))}
-      </ul>
+      {/* categories accordian*/}
+      
+       {categories.map((category, index) => (
+   <RestaurantCategory 
+    key={category.card.card.title || index} 
+    data={category.card.card} 
+  />
+
+
+    ))}
+
+
       </div>
     </div>
   
