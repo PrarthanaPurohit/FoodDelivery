@@ -93,16 +93,19 @@ const RestaurantCard = () => {
 
   return (
     
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-pink-50 to-pink-200 ">
+      <div className="text-center">
+      
       <div>
       <h2 className="font-bold p-4 text-2xl m-2 ">{restaurant.name}</h2></div>
 
-      <div>
+      <div className="border border-gray-50 rounded-lg w-fit p-2 mx-auto bg-pink-200">
       <p><span className="font-semibold">🍴 Cuisines:</span> {restaurant.cuisine}</p>
       <p><span className="font-semibold">💰 Cost for Two:</span> {restaurant.costForTwo}</p>
       <p><span className="font-semibold">⭐ Rating:</span> {restaurant.rating} </p>
       <p><span className="font-semibold">📍Address:</span> {restaurant.address}</p>
       <p><span className="font-semibold">⏰ Delivery Time:</span> {restaurant.deliveryTime} mins</p>
+      </div>
 
       {/* categories accordian*/}
       
