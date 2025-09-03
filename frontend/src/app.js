@@ -7,14 +7,18 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
-
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 const AppLayout = () => {
     return ( 
+        <Provider store={appStore}>
         <div className="app">
             <Header/>
             <Outlet />  
             {/* outlet acts like a placeholder where child routes will be rendered. */}
         </div>
+        </Provider>
     );
 };
 
@@ -39,6 +43,10 @@ const appRouter = createBrowserRouter([
             {
                 path:"/restaurants/:resId",   //: tells the path is dynamic ie resId
                 element:<RestaurantMenu />,
+            },
+            {
+                path:"/cart",
+                element:<Cart />
             }
         ],
     }
