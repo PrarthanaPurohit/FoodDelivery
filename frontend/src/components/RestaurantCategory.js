@@ -24,10 +24,10 @@ const RestaurantCategory = ({ data }) => {
 
   return (
     
-    <div>
+    <div className="mt-0">
       {/* Header */}
       <div
-        className="w-6/12 mx-auto my-6 bg-white shadow-lg p-4 flex justify-between cursor-pointer"
+        className="w-6/12 mx-auto mt-0 bg-gray-100 shadow-lg p-4 flex justify-between cursor-pointer"
         onClick={toggle}
       >
         <span>
