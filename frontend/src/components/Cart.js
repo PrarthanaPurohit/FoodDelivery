@@ -1,15 +1,24 @@
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../utils/cartSlice";
 
 const CDN_URL =
   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300/";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
-
+  const dispatch = useDispatch();
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-200 via-white-50 to-blue-100 ">
       <div className="w-6/12 mx-auto mt-0 bg-white rounded-2xl shadow-2xl p-6 text-center">
         <h2 className="text-2xl font-bold text-gray-800">Your Cart</h2>
+        <div className="flex justify-end">
+          <button className=" p-2 m-2 bg-teal-700 text-white hover:bg-teal-600 rounded-xl" 
+          onClick={handleClearCart}>Clear Cart</button>
+        </div>
 
         <div className="m-4 p-4 bg-blue-100 rounded-lg">
           {cartItems.length === 0 ? (
@@ -22,12 +31,13 @@ const Cart = () => {
                   key={item.card.info.id}
                   className="flex justify-between border-b py-2 mx-2 px-2 rounded-xl shadow-md hover:shadow-lg transition"
                 >
-                  <div>
+                  
                     <span className="font-semibold">
                       {item.card.info.name}
                     </span>
+                    <div className="flex items-center gap-4">
                     <p>₹{item.card.info.price / 100}</p>
-                  </div>
+                 
                   {item.card.info.imageId && (
                     <img
                       src={CDN_URL + item.card.info.imageId}
@@ -36,6 +46,8 @@ const Cart = () => {
                     />
                   )}
                 </div>
+                </div>
+                
               ))}
 
               {/* ⬇️ Footer (Total + Checkout button) ⬇️ */}

@@ -51,10 +51,10 @@ const RestaurantCategory = ({ data }) => {
                 key={item.card.info.id}
                 className="flex justify-between border-b py-2"
               >
-                <div>
                   <span className="font-semibold">{item.card.info.name}</span>
+               <div className="flex items-center gap-6">
                   <p>₹{item.card.info.price / 100}</p>
-                </div>
+              
                 {item.card.info.imageId && (
                   <div className="relative">
                   <img
@@ -62,6 +62,7 @@ const RestaurantCategory = ({ data }) => {
                     alt={item.card.info.name}
                     className="w-20 h-20 object-cover rounded-lg ml-2"
                   />
+                  
                   <button 
                   className="absolute bottom-1 right-1 bg-emerald-500 text-white px-1.5 py-0.5 rounded-lg shadow-md hover:bg-emerald-600 transition"
                   onClick={
@@ -73,7 +74,7 @@ const RestaurantCategory = ({ data }) => {
                     </button>
                   </div>
                 )}
-              </div>
+              </div></div>
             ))}
 
           {/* Nested subcategories */}
