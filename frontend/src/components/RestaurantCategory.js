@@ -116,7 +116,7 @@ const RestaurantCategory = ({ data }) => {
                         <p>₹{item.card.info.price / 100}</p>
                       </div>
                       {item.card.info.imageId && (
-                        <div class="relative w-64 h-80 bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                        <div className ="relative  bg-gray-100 rounded-xl overflow-hidden shadow-md">
                           <img
                             src={CDN_URL + item.card.info.imageId}
                             alt={item.card.info.name}
