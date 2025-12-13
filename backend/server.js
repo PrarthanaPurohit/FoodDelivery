@@ -1,15 +1,16 @@
+import 'dotenv/config';
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 
 //https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.7576694&lng=75.9062043&restaurantId=63800&catalog_qa=undefined&submitAction=ENTER
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 
 // Enable CORS for frontend
 app.use(cors({
-  origin: "http://localhost:1234" // Parcel dev server default port
+  origin: "*" // Allow all origins for deployed frontend
 }));
 
 app.get("/api/menu", async (req, res) => {
@@ -18,7 +19,7 @@ app.get("/api/menu", async (req, res) => {
 
   try {
     const response = await fetch(
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.7576694&lng=75.9062043&restaurantId=${restaurantId || "63800"}&catalog_qa=undefined&submitAction=ENTER`,
+      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${process.env.LAT}&lng=${process.env.LNG}&restaurantId=${restaurantId || "63800"}&catalog_qa=undefined&submitAction=ENTER`,
       {
         headers: {
           "User-Agent":
@@ -43,7 +44,7 @@ app.get("/api/menu", async (req, res) => {
 });
 
 app.use(cors({
-  origin: "http://localhost:1234" // Parcel dev server default port
+  origin: "*" // Allow all origins for deployed frontend
 }));
 
 app.get("/api/restaurants", async (req, res) => {
@@ -52,7 +53,7 @@ app.get("/api/restaurants", async (req, res) => {
 
   try {
     const response = await fetch(
-      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.7576694&lng=75.9062043&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`,
+      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${process.env.LAT}&lng=${process.env.LNG}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`,
       {
         headers: {
           "User-Agent":

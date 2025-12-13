@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
+import { API_BASE_URL } from "../utils/constants";
 
 // Simple loader
 const Shimmer = () => <div>Loading...</div>;
@@ -76,7 +77,7 @@ const RestaurantCard = () => {
     const fetchMenu = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/menu?restaurantId=${resId || 63800}`
+          `${API_BASE_URL}/api/menu?restaurantId=${resId || 63800}`
         );
         const data = await response.json();
         const extracted = extractRestaurantData(data);

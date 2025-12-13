@@ -3,6 +3,7 @@ import RestaurantCard, {withDiscountLabel} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { API_BASE_URL } from "../utils/constants";
 
 
 const Body = () => {
@@ -14,7 +15,7 @@ const Body = () => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/restaurants");
+        const response = await fetch(`${API_BASE_URL}/api/restaurants`);
         const data = await response.json();
 
         // Extract restaurant array from Swiggy API response
