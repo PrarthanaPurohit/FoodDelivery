@@ -1,6 +1,10 @@
 # Restaurant App
 
+<<<<<<< HEAD
 A simple restaurant discovery and ordering app built with React frontend and Express backend for learning purposes.
+=======
+A restaurant discovery and ordering app built with React frontend and Express backend for learning purposes.
+>>>>>>> ca1912f7c19d525d5680c5017a879d66901d886d
 
 ## Project Structure
 
@@ -133,4 +137,8 @@ To deploy:
 
 ## Contributing
 
+<<<<<<< HEAD
 Feel free to fork this repository and submit pull requests for any improvements or bug fixes.
+=======
+Feel free to fork this repository and submit pull requests for any improvements or bug fixes.
+>>>>>>> ca1912f7c19d525d5680c5017a879d66901d886d
