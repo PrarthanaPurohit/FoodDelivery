@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
+import { API_BASE_URL } from "../utils/constants";
 
 const Shimmer = () => (
   <div className="p-10 text-center text-xl">Loading...</div>
@@ -56,7 +57,7 @@ const RestaurantCard = () => {
   useEffect(() => {
     const fetchMenu = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/api/menu?restaurantId=${resId}`);
+    const response = await fetch(`${API_BASE_URL}/api/menu?restaurantId=${resId}`);
     console.log("RAW RESPONSE:", response);
 
     const text = await response.text();
