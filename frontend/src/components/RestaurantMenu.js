@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
 
-
-// Gist Raw URL - fetch menu data from GitHub Gist
-const GIST_MENU_URL = "https://gist.githubusercontent.com/PrarthanaPurohit/1ad762b28e3ea478bd4812ee57bcecf9/raw/dummyMenu.json";
-
 const Shimmer = () => (
   <div className="p-10 text-center text-xl">Loading...</div>
 );
@@ -59,33 +55,24 @@ const RestaurantCard = () => {
   };
 
   useEffect(() => {
-    const fetchMenuData = async () => {
-      setLoading(true);
-      
-      try {
-        console.log("🔄 Fetching menu from GitHub Gist...");
-        
-        const response = await fetch(GIST_MENU_URL);
-        
-        if (!response.ok) {
-          throw new Error(`Gist fetch failed with status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log("✅ Menu data loaded from Gist successfully!");
-        
-        const extracted = extractRestaurantData(data);
-        setRestaurant(extracted.restaurant);
-        setCategories(extracted.categories);
-        
-      } catch (error) {
-        console.error("❌ Error fetching from Gist:", error.message);
-        alert("Failed to load menu data from Gist. Please check your internet connection or Gist URL.");
-        setLoading(false);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const fetchMenu = async () => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/menu?restaurantId=${resId}`);
+    console.log("RAW RESPONSE:", response);
+
+    const text = await response.text();
+    console.log("RAW TEXT:", text);
+
+    const data = JSON.parse(text);
+    const extracted = extractRestaurantData(data);
+
+    setRestaurant(extracted.restaurant);
+    setCategories(extracted.categories);
+  } catch (err) {
+    console.error("Menu fetch error:", err);
+  }
+};
+
 
     fetchMenuData();
   }, [resId]);
