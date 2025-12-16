@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
 
+// GitHub Gist URL for menu data
+const GIST_MENU_URL = "https://gist.githubusercontent.com/PrarthanaPurohit/1ad762b28e3ea478bd4812ee57bcecf9/raw/dummyMenu.json";
+
 const Shimmer = () => (
   <div className="p-10 text-center text-xl">Loading...</div>
 );
@@ -12,6 +15,7 @@ const RestaurantCard = () => {
   const [restaurant, setRestaurant] = useState(null);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const extractRestaurantData = (data) => {
     // 1️⃣ Restaurant Info
@@ -55,29 +59,57 @@ const RestaurantCard = () => {
   };
 
   useEffect(() => {
-    const fetchMenu = async () => {
-  try {
-    const response = await fetch(`http://localhost:5000/api/menu?restaurantId=${resId}`);
-    console.log("RAW RESPONSE:", response);
-
-    const text = await response.text();
-    console.log("RAW TEXT:", text);
-
-    const data = JSON.parse(text);
-    const extracted = extractRestaurantData(data);
-
-    setRestaurant(extracted.restaurant);
-    setCategories(extracted.categories);
-  } catch (err) {
-    console.error("Menu fetch error:", err);
-  }
-};
-
+    const fetchMenuData = async () => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+        console.log("🔄 Fetching menu from GitHub Gist...");
+        
+        const response = await fetch(GIST_MENU_URL);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log("✅ Menu loaded successfully!");
+        
+        const extracted = extractRestaurantData(data);
+        setRestaurant(extracted.restaurant);
+        setCategories(extracted.categories);
+        
+      } catch (err) {
+        console.error("❌ Error loading menu:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchMenuData();
   }, [resId]);
 
-  if (loading || !restaurant) return <Shimmer />;
+  if (loading) return <Shimmer />;
+  
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-100 via-pink-50 to-pink-200 flex items-center justify-center">
+        <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Failed to Load Menu</h2>
+          <p className="text-gray-700 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!restaurant) return <Shimmer />;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-pink-50 to-pink-200">
