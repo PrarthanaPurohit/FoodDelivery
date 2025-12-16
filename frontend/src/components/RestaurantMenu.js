@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
 
+
+// Gist Raw URL - fetch menu data from GitHub Gist
+const GIST_MENU_URL = "https://gist.githubusercontent.com/PrarthanaPurohit/1ad762b28e3ea478bd4812ee57bcecf9/raw/dummyMenu.json";
+
 const Shimmer = () => (
   <div className="p-10 text-center text-xl">Loading...</div>
 );
@@ -11,22 +15,23 @@ const RestaurantCard = () => {
 
   const [restaurant, setRestaurant] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const extractRestaurantData = (data) => {
     // 1️⃣ Restaurant Info
     const restaurantInfo = data?.data?.cards
       ?.find(
         (c) =>
-          c?.card?.["@type"] ===
+          c?.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.Restaurant"
       )
-      ?.card?.info;
+      ?.card?.card?.info;
 
-    // 2️⃣ REGULAR cards
+    // 2️⃣ REGULAR cards - check both groupedCard and direct cards array
     const regularCards =
       data?.data?.cards
         ?.find((c) => c?.groupedCard)
-        ?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+        ?.groupedCard?.cardGroupMap?.REGULAR?.cards || data?.data?.cards || [];
 
     // 3️⃣ Item Categories (AS PER YOUR JSON)
     const categories = regularCards.filter((c) => {
@@ -41,42 +46,51 @@ const RestaurantCard = () => {
 
     return {
       restaurant: {
-        id: restaurantInfo?.id,
-        name: restaurantInfo?.name,
-        cuisines: restaurantInfo?.cuisines?.join(", "),
-        costForTwo: restaurantInfo?.costForTwoMessage,
-        rating: restaurantInfo?.avgRating,
-        area: restaurantInfo?.areaName,
-        deliveryTime: restaurantInfo?.sla?.deliveryTime,
+        id: restaurantInfo?.id || resId,
+        name: restaurantInfo?.name || "Restaurant",
+        cuisines: restaurantInfo?.cuisines?.join(", ") || "Indian, Chinese, Continental",
+        costForTwo: restaurantInfo?.costForTwoMessage || "₹300 for two",
+        rating: restaurantInfo?.avgRating || "4.2",
+        area: restaurantInfo?.areaName || "Your Area",
+        deliveryTime: restaurantInfo?.sla?.deliveryTime || 30,
       },
       categories,
     };
   };
 
   useEffect(() => {
-    const fetchMenu = async () => {
-  try {
-    const response = await fetch(`http://localhost:5000/api/menu?restaurantId=${resId}`);
-    console.log("RAW RESPONSE:", response);
+    const fetchMenuData = async () => {
+      setLoading(true);
+      
+      try {
+        console.log("🔄 Fetching menu from GitHub Gist...");
+        
+        const response = await fetch(GIST_MENU_URL);
+        
+        if (!response.ok) {
+          throw new Error(`Gist fetch failed with status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log("✅ Menu data loaded from Gist successfully!");
+        
+        const extracted = extractRestaurantData(data);
+        setRestaurant(extracted.restaurant);
+        setCategories(extracted.categories);
+        
+      } catch (error) {
+        console.error("❌ Error fetching from Gist:", error.message);
+        alert("Failed to load menu data from Gist. Please check your internet connection or Gist URL.");
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const text = await response.text();
-    console.log("RAW TEXT:", text);
-
-    const data = JSON.parse(text);
-    const extracted = extractRestaurantData(data);
-
-    setRestaurant(extracted.restaurant);
-    setCategories(extracted.categories);
-  } catch (err) {
-    console.error("Menu fetch error:", err);
-  }
-};
-
-
-    fetchMenu();
+    fetchMenuData();
   }, [resId]);
 
-  if (!restaurant) return <Shimmer />;
+  if (loading || !restaurant) return <Shimmer />;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-pink-50 to-pink-200">

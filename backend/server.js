@@ -13,35 +13,7 @@ app.use(cors({
   origin: "*" // Allow all origins for deployed frontend
 }));
 
-app.get("/api/menu", async (req, res) => {
-  const { restaurantId } = req.query;
- 
-
-  try {
-    const response = await fetch(
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${process.env.LAT}&lng=${process.env.LNG}&restaurantId=${restaurantId || "63800"}&catalog_qa=undefined&submitAction=ENTER`,
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-          "Accept": "application/json, text/plain, */*",
-          "Accept-Language": "en-US,en;q=0.9",
-          "Referer": "https://www.swiggy.com/",
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Swiggy API request failed with " + response.status);
-    }
-
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Error fetching data:", error.message);
-    res.status(500).json({ error: "Failed to fetch data" });
-  }
-});
+// Menu endpoint removed - frontend now fetches directly from GitHub Gist
 
 app.use(cors({
   origin: "*" // Allow all origins for deployed frontend

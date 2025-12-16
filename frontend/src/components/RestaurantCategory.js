@@ -5,6 +5,17 @@ import { addItem, removeItem } from "../utils/cartSlice";
 const CDN_URL =
   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300/";
 
+// Helper function to get image URL
+const getImageUrl = (imageId) => {
+  if (!imageId) return "";
+  // If imageId is already a full URL, use it directly
+  if (imageId.startsWith("http://") || imageId.startsWith("https://")) {
+    return imageId;
+  }
+  // Otherwise, use Swiggy CDN
+  return CDN_URL + imageId;
+};
+
 const RestaurantCategory = ({ data }) => {
   const cartItems = useSelector((store) => store.cart.items); // cart
   const [showItems, setShowItems] = useState(false);
@@ -67,7 +78,7 @@ const RestaurantCategory = ({ data }) => {
                     {item.card.info.imageId && (
                       <div className="relative bg-gray-100 rounded-xl overflow-hidden shadow-md">
                         <img
-                          src={CDN_URL + item.card.info.imageId}
+                          src={getImageUrl(item.card.info.imageId)}
                           alt={item.card.info.name}
                           className="w-20 h-20 object-cover rounded-lg"
                         />
@@ -118,7 +129,7 @@ const RestaurantCategory = ({ data }) => {
                       {item.card.info.imageId && (
                         <div className ="relative  bg-gray-100 rounded-xl overflow-hidden shadow-md">
                           <img
-                            src={CDN_URL + item.card.info.imageId}
+                            src={getImageUrl(item.card.info.imageId)}
                             alt={item.card.info.name}
                             className="w-20 h-20 object-cover rounded-lg "
                           />
