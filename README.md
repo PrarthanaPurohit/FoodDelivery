@@ -2,6 +2,10 @@
 
 A simple restaurant discovery and ordering app built with React frontend and Express backend for learning purposes.
 
+# Deploy URL
+
+URL: https://food-delivery-frontend-kappa-bay.vercel.app/
+
 ## Project Structure
 
 ```
